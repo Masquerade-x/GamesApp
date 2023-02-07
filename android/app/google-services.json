@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "20261548358",
+    "project_id": "gameapp-466ac",
+    "storage_bucket": "gameapp-466ac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:20261548358:android:d28c486cee554fcd5cb547",
+        "android_client_info": {
+          "package_name": "com.gamesapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "20261548358-hbmdhd76tct4brema4btf6076f0h6mrr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgmWXYKCDyS1_YDDVQ_m9KpeVIkIm35i4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "20261548358-hbmdhd76tct4brema4btf6076f0h6mrr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
