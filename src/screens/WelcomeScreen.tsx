@@ -42,7 +42,6 @@ export default function WelcomeScreen({navigation}: {navigation: any}) {
       .request(options)
       .then(function (response) {
         setPlatformData(response.data);
-        setLoading(false);
       })
       .then(() => {
         getGamesForBrowser();
@@ -79,9 +78,8 @@ export default function WelcomeScreen({navigation}: {navigation: any}) {
       .ref(`/users/${id}`)
       .once('value')
       .then(snapshot => {
+        console.log(snapshot.val(), 'val');
         setUserData(snapshot.val());
-        console.log(snapshot.val(), 'snap');
-        console.log('User data: ', snapshot.val());
       });
   };
 
@@ -140,7 +138,7 @@ export default function WelcomeScreen({navigation}: {navigation: any}) {
       </View>
     );
   };
-
+  console.log(userData.firstName, 'userData');
   return (
     <View style={styles.container}>
       <ImageBackground

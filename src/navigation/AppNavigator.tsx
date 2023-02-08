@@ -12,6 +12,8 @@ import FavScreen from '../screens/FavScreen';
 import Settings from '../screens/Settings';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {Colors} from '../constants/Colors';
+import TouchID from 'react-native-touch-id';
+import axios from 'axios';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -19,18 +21,47 @@ const Tab = createBottomTabNavigator();
 export default function AppNavigator({navigation}: {navigation: any}) {
   // Set an initializing state whilst Firebase
   const [user, setUser] = useState<any | null>(null);
+  const [touchVerified, setTouchVerified] = useState<boolean>(false);
 
-  // Handle user state changes
-  // function onAuthStateChanged(user) {
-  //   setUser(user);
-  //   if (initializing) setInitializing(false);
-  // }
+  const optionalConfigObject = {
+    title: 'Authentication Required', // Android
+    imageColor: '#e00606', // Android
+    imageErrorColor: '#ff0000', // Android
+    sensorDescription: 'Touch sensor', // Android
+    sensorErrorDescription: 'Failed', // Android
+    cancelText: 'Cancel', // Android
+    fallbackLabel: 'Show Passcode', // iOS (if empty, then label is hidden)
+    unifiedErrors: false, // use unified error messages (default false)
+    passcodeFallback: false, // iOS - allows the device to fall back to using the passcode, if faceid/touch is not available. this does not mean that if touchid/faceid fails the first few times it will revert to passcode, rather that if the former are not enrolled, then it will use the passcode.
+  };
+
+  const authenticationTouchId = () => {
+    TouchID.authenticate(
+      'to demo this react-native component',
+      optionalConfigObject,
+    )
+      .then(success => {
+        // Success code
+        setTouchVerified(true);
+      })
+      .catch(error => {
+        // Failure code
+        console.log(error);
+        return false;
+      });
+  };
+
+  function getDt() {
+    // axios.get(https://book-mange-default-rtdb.firebaseio.com/recipes.json')
+    console.log('runnign');
+  }
 
   useEffect(() => {
-    const unsubscribe = auth().onAuthStateChanged(async user => setUser(user));
+    const subscribe = auth().onAuthStateChanged(async user => setUser(user));
+    authenticationTouchId();
 
-    return unsubscribe; // unsubscribe on unmount
-  }, [navigation]);
+    return subscribe;
+  }, []);
 
   function Home() {
     return (
@@ -110,10 +141,12 @@ export default function AppNavigator({navigation}: {navigation: any}) {
           <Stack.Screen name="Signup" component={SignupScreen} />
         </Stack.Navigator>
       ) : (
-        <Stack.Navigator screenOptions={{headerShown: false}}>
-          <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="Detail" component={DetailScreen} />
-        </Stack.Navigator>
+        touchVerified && (
+          <Stack.Navigator screenOptions={{headerShown: false}}>
+            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="Detail" component={DetailScreen} />
+          </Stack.Navigator>
+        )
       )}
     </NavigationContainer>
   );

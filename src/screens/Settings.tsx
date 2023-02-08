@@ -118,6 +118,7 @@ export default function Settings() {
   const path = '../assets/images/user.jpg';
 
   const uploadImage = async (uri: any) => {
+    console.log(uri, 'uri');
     const reference = storage().ref('/new');
     const pathToFile = `${utils.FilePath.PICTURES_DIRECTORY}/${uri}`;
     console.log(pathToFile, 'rui');

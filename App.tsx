@@ -22,7 +22,7 @@ export default function App() {
     };
 
     init().finally(async () => {
-      await RNBootSplash.hide({fade: true, duration: 5000});
+      await RNBootSplash.hide();
       console.log('Bootsplash has been hidden successfully');
     });
   }, []);
