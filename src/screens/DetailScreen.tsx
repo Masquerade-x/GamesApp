@@ -63,6 +63,13 @@ export default function DetailScreen({
             }}
           />
           <IconButton
+            icon={'camera'}
+            iconColor={'white'}
+            size={24}
+            style={{position: 'absolute', right: 50}}
+            onPress={() => dispatch(resetApp())}
+          />
+          <IconButton
             icon={
               favGames?.find(item => item.id === data.id)
                 ? 'heart'
@@ -98,6 +105,7 @@ export default function DetailScreen({
         </View>
         <WebView
           source={{uri: `${data.game_url}`}}
+          onLoadStart={event => console.log(event, 'loading')}
           style={{
             marginVertical: 20,
             marginHorizontal: 20,
