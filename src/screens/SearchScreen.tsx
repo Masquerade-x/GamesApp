@@ -53,11 +53,11 @@ export default function SearchScreen({
     return response;
   };
 
-  function fitlerGame(value: any) {
+  async function fitlerGame(value: any) {
     let res = gameData?.filter(item => item?.genre === value);
     setLoading(true);
-    setData(res);
-    console.log(res, 'es');
+    await setData(res);
+
     setLoading(false);
   }
 
@@ -105,7 +105,6 @@ export default function SearchScreen({
           style={{
             backgroundColor: Colors.text,
             borderRadius: 50,
-            density: 'small',
           }}
           buttons={[
             {

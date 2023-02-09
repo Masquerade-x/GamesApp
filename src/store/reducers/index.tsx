@@ -5,10 +5,12 @@ import {
   PROFILE_PIC,
   RESET_APP,
   CREATE_ID,
+  POPULAR_MOVIES,
 } from '../actions/types';
 
 const initialState = {
   gameData: [],
+  popularMoviesData: [],
   favGames: [],
   profilePic: {},
   id: '',
@@ -20,6 +22,12 @@ const rootReducer = (state = initialState, action: any) => {
       return {
         ...state,
         gameData: action.payload,
+      };
+    }
+    case POPULAR_MOVIES: {
+      return {
+        ...state,
+        popularMoviesData: action.payload,
       };
     }
     case FAV_GAMES: {

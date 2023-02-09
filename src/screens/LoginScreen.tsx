@@ -4,8 +4,6 @@ import {TextInput, Button} from 'react-native-paper';
 import auth from '@react-native-firebase/auth';
 import {useAppDispatch} from '../store/hooks';
 import {createId} from '../store/actions';
-import database from '@react-native-firebase/database';
-import TouchID from 'react-native-touch-id';
 
 export default function LoginScreen({navigation}: {navigation: any}) {
   const [login, setLogin] = useState({email: '', password: ''});
@@ -22,25 +20,6 @@ export default function LoginScreen({navigation}: {navigation: any}) {
     unifiedErrors: false, // use unified error messages (default false)
     passcodeFallback: false, // iOS - allows the device to fall back to using the passcode, if faceid/touch is not available. this does not mean that if touchid/faceid fails the first few times it will revert to passcode, rather that if the former are not enrolled, then it will use the passcode.
   };
-
-  // useEffect(() => {
-  //   authenticationTouchId();
-  // }, []);
-
-  // const authenticationTouchId = () => {
-  //   TouchID.authenticate(
-  //     'to demo this react-native component',
-  //     optionalConfigObject,
-  //   )
-  //     .then(success => {
-  //       // Success code
-  //       console.log(success);
-  //     })
-  //     .catch(error => {
-  //       // Failure code
-  //       console.log(error);
-  //     });
-  // };
 
   function loginWithCredentials() {
     auth()

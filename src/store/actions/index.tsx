@@ -5,10 +5,15 @@ import {
   RESET_APP,
   PROFILE_PIC,
   CREATE_ID,
+  POPULAR_MOVIES,
 } from './types';
 
 export const getGameData = (data: any) => ({
   type: GAME_DATA,
+  payload: data,
+});
+export const getPopularMoviesData = (data: any) => ({
+  type: POPULAR_MOVIES,
   payload: data,
 });
 export const saveFavGames = (data: any) => ({

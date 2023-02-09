@@ -78,7 +78,6 @@ export default function WelcomeScreen({navigation}: {navigation: any}) {
       .ref(`/users/${id}`)
       .once('value')
       .then(snapshot => {
-        console.log(snapshot.val(), 'val');
         setUserData(snapshot.val());
       });
   };
@@ -138,7 +137,7 @@ export default function WelcomeScreen({navigation}: {navigation: any}) {
       </View>
     );
   };
-  console.log(userData.firstName, 'userData');
+
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -153,17 +152,20 @@ export default function WelcomeScreen({navigation}: {navigation: any}) {
           />
         ) : (
           <>
-            <View style={styles.avatarBar}>
+            {/* <View style={styles.avatarBar}>
               <Avatar.Image
                 size={40}
                 source={require('../assets/images/patrick.jpg')}
               />
               <Text style={styles.title}>Welcome {userData?.firstName}</Text>
-            </View>
+            </View> */}
             <View
-              style={{
-                paddingHorizontal: 10,
-              }}>
+              style={
+                {
+                  // paddingHorizontal: 10,
+                  // marginHorizontal: 0,
+                }
+              }>
               <Text style={styles.headerTitle}>PC Games</Text>
               <Carousel
                 data={platformData}
@@ -205,7 +207,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   avatarBar: {
-    backgroundColor: '#3C4048',
+    backgroundColor: '#2B3A55',
     alignItems: 'center',
     marginHorizontal: 10,
     marginTop: 20,
@@ -222,7 +224,7 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     color: Colors.text,
-
+    marginHorizontal: 10,
     fontSize: 16,
     paddingVertical: 20,
   },

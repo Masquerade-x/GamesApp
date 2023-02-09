@@ -19,7 +19,6 @@ export default function SignupScreen({navigation}: {navigation: any}) {
   const dispatch = useAppDispatch();
 
   function addData(result: any, data: any) {
-    console.log(result.user);
     database()
       .ref(`/users/${result.user.uid}`)
       .set({

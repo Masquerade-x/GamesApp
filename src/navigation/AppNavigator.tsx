@@ -13,7 +13,9 @@ import Settings from '../screens/Settings';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {Colors} from '../constants/Colors';
 import TouchID from 'react-native-touch-id';
-import axios from 'axios';
+import MaterialIcon from 'react-native-vector-icons/FontAwesome5';
+import HomeScreen from '../screens/HomeScreen';
+import MoviesScreen from '../screens/MoviesScreen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -51,11 +53,6 @@ export default function AppNavigator({navigation}: {navigation: any}) {
       });
   };
 
-  function getDt() {
-    // axios.get(https://book-mange-default-rtdb.firebaseio.com/recipes.json')
-    console.log('runnign');
-  }
-
   useEffect(() => {
     const subscribe = auth().onAuthStateChanged(async user => setUser(user));
     authenticationTouchId();
@@ -74,6 +71,20 @@ export default function AppNavigator({navigation}: {navigation: any}) {
           },
         }}>
         <Tab.Screen
+          name="HomeScreen"
+          component={HomeScreen}
+          options={{
+            tabBarIcon: () => {
+              return <Icon name={'home'} size={25} color={Colors.text} />;
+            },
+            tabBarLabelStyle: {
+              color: Colors.text,
+              fontSize: 12,
+              paddingBottom: 5,
+            },
+          }}
+        />
+        {/* <Tab.Screen
           name="Welcome"
           component={WelcomeScreen}
           options={{
@@ -86,13 +97,15 @@ export default function AppNavigator({navigation}: {navigation: any}) {
               paddingBottom: 5,
             },
           }}
-        />
+        /> */}
         <Tab.Screen
           name="Search"
           component={SearchScreen}
           options={{
             tabBarIcon: () => {
-              return <Icon name={'home'} size={25} color={Colors.text} />;
+              return (
+                <MaterialIcon name={'search'} size={24} color={Colors.text} />
+              );
             },
             tabBarLabelStyle: {
               color: Colors.text,
@@ -135,19 +148,25 @@ export default function AppNavigator({navigation}: {navigation: any}) {
 
   return (
     <NavigationContainer>
-      {user === null ? (
-        <Stack.Navigator screenOptions={{headerShown: false}}>
-          <Stack.Screen name="Login" component={LoginScreen} />
-          <Stack.Screen name="Signup" component={SignupScreen} />
-        </Stack.Navigator>
-      ) : (
-        touchVerified && (
+      {
+        user === null ? (
           <Stack.Navigator screenOptions={{headerShown: false}}>
+            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Signup" component={SignupScreen} />
+          </Stack.Navigator>
+        ) : (
+          // touchVerified && (
+          <Stack.Navigator
+            initialRouteName="HomeScreen"
+            screenOptions={{headerShown: false}}>
+            {/* <Stack.Screen name="HomeScreen" component={HomeScreen} /> */}
             <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="Movies" component={MoviesScreen} />
             <Stack.Screen name="Detail" component={DetailScreen} />
           </Stack.Navigator>
         )
-      )}
+        // )
+      }
     </NavigationContainer>
   );
 }

@@ -27,10 +27,8 @@ export default function DetailScreen({
   const onDismissSnackBar = () => setVisible(false);
 
   const data = route?.params.data;
-  console.log(favGames);
 
   function Pressed() {
-    console.log('running');
     onToggleSnackBar();
     dispatch(saveFavGames(route?.params.data));
   }

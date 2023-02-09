@@ -23,7 +23,7 @@ export default function Settings() {
   const includeExtra = true;
   const profileData = useAppSelector(state => state.profilePic);
   const id = useAppSelector(state => state.id);
-  console.log(profileData);
+
   const dispatch = useAppDispatch();
 
   const [visible, setVisible] = useState(false);
@@ -91,7 +91,6 @@ export default function Settings() {
           buttonPositive: 'OK',
         },
       );
-      console.log(granted);
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
         launchCamera(options, setResponse).then(result =>
           uploadImage(result?.assets[0].uri),
@@ -118,10 +117,8 @@ export default function Settings() {
   const path = '../assets/images/user.jpg';
 
   const uploadImage = async (uri: any) => {
-    console.log(uri, 'uri');
     const reference = storage().ref('/new');
     const pathToFile = `${utils.FilePath.PICTURES_DIRECTORY}/${uri}`;
-    console.log(pathToFile, 'rui');
     await reference.putFile(pathToFile);
   };
 
