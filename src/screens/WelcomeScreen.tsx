@@ -250,7 +250,7 @@ const styles = StyleSheet.create({
     height: 250,
     borderRadius: 20,
     alignItems: 'center',
-    opacity: 0.7,
+    opacity: 0.8,
     justifyContent: 'center',
   },
 });

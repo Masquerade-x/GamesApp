@@ -7,8 +7,8 @@ import WelcomeScreen from './WelcomeScreen';
 import database from '@react-native-firebase/database';
 import MoviesScreen from './MoviesScreen';
 
-export default function HomeScreen(navigation: any) {
-  const [value, setValue] = React.useState('Movies');
+export default function HomeScreen({navigation}: {navigation: any}) {
+  const [value, setValue] = React.useState('Games');
   const [userData, setUserData] = React.useState('');
   const id = useAppSelector(state => state.id);
 
@@ -39,16 +39,16 @@ export default function HomeScreen(navigation: any) {
         onValueChange={setValue}
         buttons={[
           {
-            value: 'Movies',
-            label: 'Movies',
+            value: 'Games',
+            label: 'Games',
+            style: {},
             onPress: () => {
               setValue(value);
             },
           },
           {
-            value: 'Games',
-            label: 'Games',
-            style: {},
+            value: 'Movies',
+            label: 'Movies',
             onPress: () => {
               setValue(value);
             },

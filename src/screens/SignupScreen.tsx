@@ -6,14 +6,16 @@ import {
   KeyboardAvoidingView,
   Platform,
   ImageBackground,
+  TextInput,
 } from 'react-native';
-import {TextInput, Button} from 'react-native-paper';
+import {Button} from 'react-native-paper';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
 import {useForm, Controller} from 'react-hook-form';
 import {useAppDispatch} from '../store/hooks';
 import {createId} from '../store/actions';
 import {curryGetDefaultMiddleware} from '@reduxjs/toolkit/dist/getDefaultMiddleware';
+import {Colors} from '../constants/Colors';
 
 export default function SignupScreen({navigation}: {navigation: any}) {
   const dispatch = useAppDispatch();
@@ -80,92 +82,88 @@ export default function SignupScreen({navigation}: {navigation: any}) {
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={{flex: 1}}>
-      <ImageBackground
+      {/* <ImageBackground
         style={styles.imgBackground}
         resizeMode="cover"
-        source={require('../assets/images/login.jpg')}>
-        <View style={{marginTop: 50}}>
-          <Controller
-            control={control}
-            render={({field: {onChange, onBlur, value}}) => (
-              <TextInput
-                label="First Name"
-                mode="outlined"
-                style={styles.textInput}
-                onBlur={onBlur}
-                onChangeText={onChange}
-                value={value}
-              />
-            )}
-            name="firstName"
-          />
-          {errors.firstName && <Text>This is required.</Text>}
-          <Controller
-            control={control}
-            render={({field: {onChange, onBlur, value}}) => (
-              <TextInput
-                label="Last Name"
-                mode="outlined"
-                style={styles.textInput}
-                onBlur={onBlur}
-                onChangeText={onChange}
-                value={value}
-              />
-            )}
-            name="lastName"
-          />
-          {errors.lastName && <Text>This is required.</Text>}
-          <Controller
-            control={control}
-            rules={{
-              required: true,
-              pattern:
-                /[-0-9!#$%&'*+/=?^_`{|}~A-Za-z]+(?:\.[-0-9!#$%&'*+/=?^_`{|}~A-Za-z]+)*@(?:[0-9A-Za-z](?:[-0-9A-Za-z]*[0-9A-Za-z])?\.)+[0-9A-Za-z](?:[-0-9A-Za-z]*[0-9A-Za-z])?/,
-            }}
-            render={({field: {onChange, onBlur, value}}) => (
-              <TextInput
-                label="Email"
-                mode="outlined"
-                style={styles.textInput}
-                onBlur={onBlur}
-                onChangeText={onChange}
-                value={value}
-              />
-            )}
-            name="email"
-          />
-          {errors.email && <Text>Please check your email again</Text>}
-
-          <Controller
-            control={control}
-            rules={{
-              maxLength: 14,
-              minLength: 8,
-            }}
-            render={({field: {onChange, onBlur, value}}) => (
-              <TextInput
-                label="Password"
-                mode="outlined"
-                style={styles.textInput}
-                onBlur={onBlur}
-                onChangeText={onChange}
-                value={value}
-              />
-            )}
-            name="password"
-          />
-          {errors.password && (
-            <Text>Your password should be min 9 characters long.</Text>
+        source={require('../assets/images/login.jpg')}> */}
+      <View style={{marginTop: 50}}>
+        <Controller
+          control={control}
+          render={({field: {onChange, onBlur, value}}) => (
+            <TextInput
+              placeholder="First Name"
+              style={styles.textInput}
+              onBlur={onBlur}
+              onChangeText={onChange}
+              value={value}
+            />
           )}
-          <Button
-            icon="account-plus"
-            mode="contained"
-            style={styles.btn}
-            onPress={handleSubmit(onSubmit)}>
-            Singup
-          </Button>
-        </View>
-      </ImageBackground>
+          name="firstName"
+        />
+        {errors.firstName && <Text>This is required.</Text>}
+        <Controller
+          control={control}
+          render={({field: {onChange, onBlur, value}}) => (
+            <TextInput
+              placeholder="Last Name"
+              style={styles.textInput}
+              onBlur={onBlur}
+              onChangeText={onChange}
+              value={value}
+            />
+          )}
+          name="lastName"
+        />
+        {errors.lastName && <Text>This is required.</Text>}
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+            pattern:
+              /[-0-9!#$%&'*+/=?^_`{|}~A-Za-z]+(?:\.[-0-9!#$%&'*+/=?^_`{|}~A-Za-z]+)*@(?:[0-9A-Za-z](?:[-0-9A-Za-z]*[0-9A-Za-z])?\.)+[0-9A-Za-z](?:[-0-9A-Za-z]*[0-9A-Za-z])?/,
+          }}
+          render={({field: {onChange, onBlur, value}}) => (
+            <TextInput
+              placeholder="Email"
+              style={styles.textInput}
+              onBlur={onBlur}
+              onChangeText={onChange}
+              value={value}
+            />
+          )}
+          name="email"
+        />
+        {errors.email && <Text>Please check your email again</Text>}
+
+        <Controller
+          control={control}
+          rules={{
+            maxLength: 14,
+            minLength: 8,
+          }}
+          render={({field: {onChange, onBlur, value}}) => (
+            <TextInput
+              placeholder="Password"
+              style={styles.textInput}
+              onBlur={onBlur}
+              onChangeText={onChange}
+              value={value}
+            />
+          )}
+          name="password"
+        />
+        {errors.password && (
+          <Text>Your password should be min 9 characters long.</Text>
+        )}
+        <Button
+          icon="account-plus"
+          mode="contained"
+          style={styles.btn}
+          onPress={handleSubmit(onSubmit)}>
+          Singup
+        </Button>
+      </View>
+      {/* </ImageBackground> */}
     </KeyboardAvoidingView>
   );
 }
@@ -180,9 +178,22 @@ const styles = StyleSheet.create({
   textInput: {
     marginVertical: 10,
     marginHorizontal: 30,
+    backgroundColor: '#F5F5F5',
+    borderRadius: 20,
+    paddingHorizontal: 30,
+    shadowColor: Colors.secondary,
+    shadowOffset: {
+      width: 0,
+      height: 8,
+    },
+    shadowOpacity: 0.44,
+    shadowRadius: 10.32,
+
+    elevation: 16,
   },
   btn: {
-    marginTop: 10,
+    marginTop: 14,
     marginHorizontal: 30,
+    paddingVertical: 2,
   },
 });

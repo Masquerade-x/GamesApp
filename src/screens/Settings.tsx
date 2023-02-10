@@ -168,11 +168,18 @@ export default function Settings() {
             })}
           </View>
           <Dialog visible={visible} onDismiss={hideDialog}>
-            <Dialog.Title>Alert</Dialog.Title>
             <Dialog.Content>
-              <Text>Are you sure you want to logout!</Text>
+              <Text
+                style={{
+                  fontWeight: 'bold',
+                  fontSize: 16,
+                  color: Colors.secondary,
+                  textAlign: 'center',
+                }}>
+                Are you sure you want to logout!
+              </Text>
             </Dialog.Content>
-            <Dialog.Actions>
+            <Dialog.Actions style={{justifyContent: 'space-evenly'}}>
               <Button onPress={() => hideDialog('yes')}>Yes</Button>
               <Button onPress={hideDialog}>Cancel</Button>
             </Dialog.Actions>

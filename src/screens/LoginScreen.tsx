@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {View, Image, StyleSheet, KeyboardAvoidingView} from 'react-native';
-import {TextInput, Button} from 'react-native-paper';
+import {TextInput, Image, StyleSheet, KeyboardAvoidingView} from 'react-native';
+import {Button} from 'react-native-paper';
 import auth from '@react-native-firebase/auth';
 import {useAppDispatch} from '../store/hooks';
 import {createId} from '../store/actions';
+import {Colors} from '../constants/Colors';
 
 export default function LoginScreen({navigation}: {navigation: any}) {
   const [login, setLogin] = useState({email: '', password: ''});
@@ -40,15 +41,13 @@ export default function LoginScreen({navigation}: {navigation: any}) {
         // width="100"
       />
       <TextInput
-        label="Email"
-        mode="outlined"
+        placeholder="Email"
         value={login.email}
         style={styles.textInput}
         onChangeText={text => setLogin({...login, email: text})}
       />
       <TextInput
-        label="Password"
-        mode="outlined"
+        placeholder="Password"
         value={login.password}
         style={styles.textInput}
         onChangeText={text => setLogin({...login, password: text})}
@@ -81,6 +80,18 @@ const styles = StyleSheet.create({
   textInput: {
     marginVertical: 10,
     marginHorizontal: 30,
+    backgroundColor: '#F5F5F5',
+    borderRadius: 20,
+    paddingHorizontal: 30,
+    shadowColor: Colors.secondary,
+    shadowOffset: {
+      width: 0,
+      height: 8,
+    },
+    shadowOpacity: 0.44,
+    shadowRadius: 10.32,
+
+    elevation: 16,
   },
   btn: {
     alignSelf: 'center',

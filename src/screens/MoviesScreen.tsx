@@ -84,11 +84,12 @@ export default function MoviesScreen(navigation: any) {
   }
 
   function MovieList({item}: any) {
-    // console.log(isFlipped, 'item');
     return (
       <View style={styles.container}>
         {!isFlipped ? (
-          <Animated.View style={[styles.hidden, rotateFront, styles.card]}>
+          <Animated.View
+            key={item.id}
+            style={[styles.hidden, rotateFront, styles.card]}>
             <FlipCard
               title={item.title}
               ref={frontRef}
@@ -102,6 +103,7 @@ export default function MoviesScreen(navigation: any) {
         ) : (
           <Animated.View style={[styles.hidden, rotateBack, styles.card]}>
             <FlipCard
+              key={item.id}
               title="Back"
               ref={backRef}
               view="back"

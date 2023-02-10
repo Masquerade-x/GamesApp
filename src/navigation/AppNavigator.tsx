@@ -148,25 +148,23 @@ export default function AppNavigator({navigation}: {navigation: any}) {
 
   return (
     <NavigationContainer>
-      {
-        user === null ? (
-          <Stack.Navigator screenOptions={{headerShown: false}}>
-            <Stack.Screen name="Login" component={LoginScreen} />
-            <Stack.Screen name="Signup" component={SignupScreen} />
-          </Stack.Navigator>
-        ) : (
-          // touchVerified && (
-          <Stack.Navigator
-            initialRouteName="HomeScreen"
-            screenOptions={{headerShown: false}}>
-            {/* <Stack.Screen name="HomeScreen" component={HomeScreen} /> */}
-            <Stack.Screen name="Home" component={Home} />
-            <Stack.Screen name="Movies" component={MoviesScreen} />
-            <Stack.Screen name="Detail" component={DetailScreen} />
-          </Stack.Navigator>
-        )
+      {user === null ? (
+        <Stack.Navigator screenOptions={{headerShown: false}}>
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Signup" component={SignupScreen} />
+        </Stack.Navigator>
+      ) : (
+        // touchVerified && (
+        <Stack.Navigator
+          initialRouteName="HomeScreen"
+          screenOptions={{headerShown: false}}>
+          {/* <Stack.Screen name="HomeScreen" component={HomeScreen} /> */}
+          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Movies" component={MoviesScreen} />
+          <Stack.Screen name="Detail" component={DetailScreen} />
+        </Stack.Navigator>
         // )
-      }
+      )}
     </NavigationContainer>
   );
 }
