@@ -152,20 +152,7 @@ export default function WelcomeScreen({navigation}: {navigation: any}) {
           />
         ) : (
           <>
-            {/* <View style={styles.avatarBar}>
-              <Avatar.Image
-                size={40}
-                source={require('../assets/images/patrick.jpg')}
-              />
-              <Text style={styles.title}>Welcome {userData?.firstName}</Text>
-            </View> */}
-            <View
-              style={
-                {
-                  // paddingHorizontal: 10,
-                  // marginHorizontal: 0,
-                }
-              }>
+            <View>
               <Text style={styles.headerTitle}>PC Games</Text>
               <Carousel
                 data={platformData}

@@ -1,25 +1,15 @@
 import axios from 'axios';
 import React, {useEffect, useRef, useState} from 'react';
-import {
-  View,
-  Image,
-  TouchableOpacity,
-  Text,
-  StyleSheet,
-  FlatList,
-  Animated,
-} from 'react-native';
-import {IconButton, Button, Card} from 'react-native-paper';
+import {View, StyleSheet, FlatList, Animated} from 'react-native';
 import FlipCard from '../components/FlipCard';
-
+import {movieDataApi} from '../utils/Api';
 import Loader from '../components/Loader';
-import {Colors} from '../constants/Colors';
 import {getPopularMoviesData} from '../store/actions';
 import {useAppDispatch, useAppSelector} from '../store/hooks';
 
 export default function MoviesScreen(navigation: any) {
   const dispatch = useAppDispatch();
-  const path = `https://api.themoviedb.org/3/movie/popular?api_key=64d7a046fb1d568fa1f1d14b8cfe3c6e&language=en-US&page=1/`;
+
   const popularMovies = useAppSelector(state => state.popularMoviesData);
 
   const animate = useRef(new Animated.Value(0));
@@ -75,9 +65,8 @@ export default function MoviesScreen(navigation: any) {
 
   function getMovies() {
     axios
-      .get(path)
+      .get(movieDataApi)
       .then(result => {
-        // console.log(result);
         dispatch(getPopularMoviesData(result.data.results));
       })
       .catch(error => console.log(error));
@@ -113,8 +102,6 @@ export default function MoviesScreen(navigation: any) {
             />
           </Animated.View>
         )}
-        {/* <Button onPress={doAFlip}>Flip</Button> */}
-        {/* <FlipCard data={item} /> */}
       </View>
     );
   }
@@ -122,15 +109,15 @@ export default function MoviesScreen(navigation: any) {
   return (
     <View style={{flex: 1}}>
       <View>
-        {/* {popularMovies && popularMovies?.length < 0 ? (
+        {popularMovies && popularMovies?.length < 0 ? (
           <Loader />
-        ) : ( */}
-        <FlatList
-          data={popularMovies}
-          renderItem={item => MovieList(item)}
-          keyExtractor={item => item.id}
-        />
-        {/* )} */}
+        ) : (
+          <FlatList
+            data={popularMovies}
+            renderItem={item => MovieList(item)}
+            keyExtractor={item => item.id}
+          />
+        )}
       </View>
     </View>
   );

@@ -5,7 +5,6 @@ import {
   StyleSheet,
   KeyboardAvoidingView,
   Platform,
-  ImageBackground,
   TextInput,
 } from 'react-native';
 import {Button} from 'react-native-paper';
@@ -14,7 +13,6 @@ import database from '@react-native-firebase/database';
 import {useForm, Controller} from 'react-hook-form';
 import {useAppDispatch} from '../store/hooks';
 import {createId} from '../store/actions';
-import {curryGetDefaultMiddleware} from '@reduxjs/toolkit/dist/getDefaultMiddleware';
 import {Colors} from '../constants/Colors';
 
 export default function SignupScreen({navigation}: {navigation: any}) {
@@ -81,10 +79,6 @@ export default function SignupScreen({navigation}: {navigation: any}) {
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={{flex: 1}}>
-      {/* <ImageBackground
-        style={styles.imgBackground}
-        resizeMode="cover"
-        source={require('../assets/images/login.jpg')}> */}
       <View style={{marginTop: 50}}>
         <Controller
           control={control}
@@ -167,7 +161,6 @@ export default function SignupScreen({navigation}: {navigation: any}) {
           Singup
         </Button>
       </View>
-      {/* </ImageBackground> */}
     </KeyboardAvoidingView>
   );
 }

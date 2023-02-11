@@ -86,20 +86,6 @@ export default function AppNavigator({navigation}: {navigation: any}) {
             },
           }}
         />
-        {/* <Tab.Screen
-          name="Welcome"
-          component={WelcomeScreen}
-          options={{
-            tabBarIcon: () => {
-              return <Icon name={'home'} size={25} color={Colors.text} />;
-            },
-            tabBarLabelStyle: {
-              color: Colors.text,
-              fontSize: 12,
-              paddingBottom: 5,
-            },
-          }}
-        /> */}
         <Tab.Screen
           name="Search"
           component={SearchScreen}
@@ -156,16 +142,16 @@ export default function AppNavigator({navigation}: {navigation: any}) {
           <Stack.Screen name="Signup" component={SignupScreen} />
         </Stack.Navigator>
       ) : (
-        // touchVerified && (
-        <Stack.Navigator
-          initialRouteName="HomeScreen"
-          screenOptions={{headerShown: false}}>
-          {/* <Stack.Screen name="HomeScreen" component={HomeScreen} /> */}
-          <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="Movies" component={MoviesScreen} />
-          <Stack.Screen name="Detail" component={DetailScreen} />
-        </Stack.Navigator>
-        // )
+        touchVerified && (
+          <Stack.Navigator
+            initialRouteName="HomeScreen"
+            screenOptions={{headerShown: false}}>
+            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="Welcome" component={WelcomeScreen} />
+            <Stack.Screen name="Movies" component={MoviesScreen} />
+            <Stack.Screen name="Detail" component={DetailScreen} />
+          </Stack.Navigator>
+        )
       )}
     </NavigationContainer>
   );

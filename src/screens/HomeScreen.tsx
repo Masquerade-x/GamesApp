@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {SafeAreaView, View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import {Avatar, SegmentedButtons} from 'react-native-paper';
 import {Colors} from '../constants/Colors';
 import {useAppSelector} from '../store/hooks';

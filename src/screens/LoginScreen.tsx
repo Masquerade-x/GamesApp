@@ -18,18 +18,6 @@ export default function LoginScreen({navigation}: {navigation: any}) {
 
   const dispatch = useAppDispatch();
 
-  const optionalConfigObject = {
-    title: 'Authentication Required', // Android
-    imageColor: '#e00606', // Android
-    imageErrorColor: '#ff0000', // Android
-    sensorDescription: 'Touch sensor', // Android
-    sensorErrorDescription: 'Failed', // Android
-    cancelText: 'Cancel', // Android
-    fallbackLabel: 'Show Passcode', // iOS (if empty, then label is hidden)
-    unifiedErrors: false, // use unified error messages (default false)
-    passcodeFallback: false, // iOS - allows the device to fall back to using the passcode, if faceid/touch is not available. this does not mean that if touchid/faceid fails the first few times it will revert to passcode, rather that if the former are not enrolled, then it will use the passcode.
-  };
-
   function loginWithCredentials() {
     auth()
       .signInWithEmailAndPassword(login.email, login.password)
@@ -68,8 +56,6 @@ export default function LoginScreen({navigation}: {navigation: any}) {
         source={require('../assets/images/login.png')}
         resizeMode="contain"
         style={{height: 300, width: 300, alignSelf: 'center'}}
-        // height="100"
-        // width="100"
       />
       <TextInput
         placeholder="Email"
@@ -93,7 +79,7 @@ export default function LoginScreen({navigation}: {navigation: any}) {
       <Button
         icon="login"
         mode="outlined"
-        // disabled={login.email === '' || login.password === ''}
+        disabled={login.email === '' || login.password === ''}
         style={styles.btn}
         onPress={loginWithCredentials}>
         Login
@@ -113,7 +99,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    // marginBottom: 300,
   },
 
   textInput: {

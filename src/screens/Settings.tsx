@@ -15,14 +15,11 @@ import {useAppDispatch, useAppSelector} from '../store/hooks';
 import {Button} from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import auth from '@react-native-firebase/auth';
-import storage from '@react-native-firebase/storage';
-import {utils} from '@react-native-firebase/app';
 
 export default function Settings() {
   const [response, setResponse] = useState<any>(null);
   const includeExtra = true;
   const profileData = useAppSelector(state => state.profilePic);
-  const id = useAppSelector(state => state.id);
 
   const dispatch = useAppDispatch();
 
@@ -30,8 +27,8 @@ export default function Settings() {
 
   const showDialog = () => setVisible(true);
 
-  const hideDialog = async i => {
-    if (i === 'yes') {
+  const hideDialog = async (item: any) => {
+    if (item === 'yes') {
       await AsyncStorage.removeItem('@games');
       await auth().signOut();
     }
@@ -72,12 +69,7 @@ export default function Settings() {
     },
   ];
 
-  async function logOut() {
-    await AsyncStorage.removeItem('@games');
-    await auth().signOut();
-  }
-
-  const requestCameraPermission = async (type, options) => {
+  const requestCameraPermission = async (type: any, options: any) => {
     try {
       const granted = await PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.CAMERA,
@@ -92,9 +84,7 @@ export default function Settings() {
         },
       );
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        launchCamera(options, setResponse).then(result =>
-          uploadImage(result?.assets[0].uri),
-        );
+        launchCamera(options, setResponse);
         console.log('You can use the camera');
       } else {
         console.log('Camera permission denied');
@@ -108,19 +98,11 @@ export default function Settings() {
     if (type === 'capture') {
       requestCameraPermission(type, options);
     } else {
-      launchImageLibrary(options, setResponse).then(result =>
-        uploadImage(result?.assets[0].uri),
-      );
+      launchImageLibrary(options, setResponse);
     }
   }, []);
 
   const path = '../assets/images/user.jpg';
-
-  const uploadImage = async (uri: any) => {
-    const reference = storage().ref('/new');
-    const pathToFile = `${utils.FilePath.PICTURES_DIRECTORY}/${uri}`;
-    await reference.putFile(pathToFile);
-  };
 
   return (
     <View style={styles.container}>
@@ -129,23 +111,15 @@ export default function Settings() {
         source={require('../assets/images/camera.png')}
         resizeMode="contain">
         <View style={styles.blackScreen}>
-          {response === null ? (
-            <Image
-              style={styles.img}
-              source={
-                profileData && profileData.uri
-                  ? {uri: profileData?.uri}
-                  : require(path)
-              }
-            />
-          ) : response && response.assets ? (
-            <Image
-              style={styles.img}
-              source={{
-                uri: `${response?.assets[0].uri}`,
-              }}
-            />
-          ) : null}
+          <Image
+            style={styles.img}
+            source={
+              profileData && profileData.uri
+                ? {uri: profileData?.uri}
+                : require(path)
+            }
+          />
+
           <View style={styles.icons}>
             {actions.map(({title, icon, id, type, options}) => {
               return (

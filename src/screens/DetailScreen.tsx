@@ -3,12 +3,7 @@ import {View, Text, StyleSheet, Image} from 'react-native';
 import {Colors} from '../constants/Colors';
 import {Appbar, IconButton, Snackbar} from 'react-native-paper';
 import {useAppDispatch, useAppSelector} from '../store/hooks';
-import {
-  getGameData,
-  removeFavGames,
-  resetApp,
-  saveFavGames,
-} from '../store/actions';
+import {removeFavGames, saveFavGames} from '../store/actions';
 import {WebView} from 'react-native-webview';
 
 export default function DetailScreen({
@@ -35,11 +30,6 @@ export default function DetailScreen({
 
   return (
     <View style={styles.container}>
-      {/*
-        <Appbar.Action icon={'camera'} onPress={() => dispatch(resetApp())} />
-
-      </Appbar.Header> */}
-
       <View
         style={{
           backgroundColor: Colors.secondary,
