@@ -60,13 +60,13 @@ export default function DetailScreen({
               uri: data.thumbnail,
             }}
           />
-          <IconButton
+          {/* <IconButton
             icon={'camera'}
             iconColor={'white'}
             size={24}
             style={{position: 'absolute', right: 50}}
             onPress={() => dispatch(resetApp())}
-          />
+          /> */}
           <IconButton
             icon={
               favGames?.find(item => item.id === data.id)
