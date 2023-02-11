@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -19,6 +19,7 @@ import {Colors} from '../constants/Colors';
 
 export default function SignupScreen({navigation}: {navigation: any}) {
   const dispatch = useAppDispatch();
+  const [error, setError] = useState('');
 
   function addData(result: any, data: any) {
     database()
@@ -36,11 +37,7 @@ export default function SignupScreen({navigation}: {navigation: any}) {
 
   const createUser = async (data: any) => {
     auth()
-      .createUserWithEmailAndPassword(
-        data.email,
-
-        data.password,
-      )
+      .createUserWithEmailAndPassword(data.email, data.password)
       .then(result => {
         dispatch(createId(result.user.uid));
         addData(result, data);
@@ -48,8 +45,10 @@ export default function SignupScreen({navigation}: {navigation: any}) {
       })
 
       .catch(error => {
+        console.log(error.code);
         if (error.code === 'auth/email-already-in-use') {
           console.log('That email address is already in use!');
+          setError('That email address is already in use!');
         }
 
         if (error.code === 'auth/invalid-email') {
@@ -133,8 +132,11 @@ export default function SignupScreen({navigation}: {navigation: any}) {
           )}
           name="email"
         />
-        {errors.email && <Text>Please check your email again</Text>}
-
+        {errors.email ? (
+          <Text style={styles.text}>Please check your email again</Text>
+        ) : (
+          error !== '' && <Text style={styles.text}>{error}</Text>
+        )}
         <Controller
           control={control}
           rules={{
@@ -153,7 +155,9 @@ export default function SignupScreen({navigation}: {navigation: any}) {
           name="password"
         />
         {errors.password && (
-          <Text>Your password should be min 9 characters long.</Text>
+          <Text style={styles.text}>
+            Your password should be min 8 characters long.
+          </Text>
         )}
         <Button
           icon="account-plus"
@@ -190,6 +194,12 @@ const styles = StyleSheet.create({
     shadowRadius: 10.32,
 
     elevation: 16,
+  },
+  text: {
+    color: Colors.secondary,
+    fontWeight: '500',
+    fontSize: 14,
+    marginHorizontal: 50,
   },
   btn: {
     marginTop: 14,

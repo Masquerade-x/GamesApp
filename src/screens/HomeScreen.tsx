@@ -8,7 +8,7 @@ import database from '@react-native-firebase/database';
 import MoviesScreen from './MoviesScreen';
 
 export default function HomeScreen({navigation}: {navigation: any}) {
-  const [value, setValue] = React.useState('Games');
+  const [value, setValue] = React.useState('');
   const [userData, setUserData] = React.useState('');
   const id = useAppSelector(state => state.id);
 

@@ -16,6 +16,7 @@ import TouchID from 'react-native-touch-id';
 import MaterialIcon from 'react-native-vector-icons/FontAwesome5';
 import HomeScreen from '../screens/HomeScreen';
 import MoviesScreen from '../screens/MoviesScreen';
+import {useAppSelector} from '../store/hooks';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -24,6 +25,8 @@ export default function AppNavigator({navigation}: {navigation: any}) {
   // Set an initializing state whilst Firebase
   const [user, setUser] = useState<any | null>(null);
   const [touchVerified, setTouchVerified] = useState<boolean>(false);
+  const app = useAppSelector(state => state);
+  console.log(app);
 
   const optionalConfigObject = {
     title: 'Authentication Required', // Android
@@ -56,7 +59,6 @@ export default function AppNavigator({navigation}: {navigation: any}) {
   useEffect(() => {
     const subscribe = auth().onAuthStateChanged(async user => setUser(user));
     authenticationTouchId();
-
     return subscribe;
   }, []);
 

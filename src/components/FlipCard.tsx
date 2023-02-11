@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Card, IconButton, Title} from 'react-native-paper';
 import {Colors} from '../constants/Colors';
@@ -22,6 +22,7 @@ const RightContent = (props: any) => (
     style={{paddingBottom: 20, marginBottom: 20}}
   />
 );
+
 const FlipCard = ({
   title,
   onPress,

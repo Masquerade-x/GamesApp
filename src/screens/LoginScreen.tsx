@@ -1,13 +1,21 @@
 import React, {useEffect, useState} from 'react';
-import {TextInput, Image, StyleSheet, KeyboardAvoidingView} from 'react-native';
-import {Button} from 'react-native-paper';
+import {
+  TextInput,
+  Text,
+  Image,
+  StyleSheet,
+  KeyboardAvoidingView,
+} from 'react-native';
+import {Button, HelperText} from 'react-native-paper';
 import auth from '@react-native-firebase/auth';
 import {useAppDispatch} from '../store/hooks';
-import {createId} from '../store/actions';
+import {createId, resetApp} from '../store/actions';
 import {Colors} from '../constants/Colors';
 
 export default function LoginScreen({navigation}: {navigation: any}) {
   const [login, setLogin] = useState({email: '', password: ''});
+  const [error, setError] = useState({emailError: '', passwordError: ''});
+
   const dispatch = useAppDispatch();
 
   const optionalConfigObject = {
@@ -26,17 +34,40 @@ export default function LoginScreen({navigation}: {navigation: any}) {
     auth()
       .signInWithEmailAndPassword(login.email, login.password)
       .then(result => {
+        dispatch(resetApp());
         dispatch(createId(result.user.uid));
       })
-      .catch(error => console.log(error));
+      .catch(error => {
+        if (error.code === 'auth/wrong-password') {
+          setError({
+            ...error,
+            passwordError: 'Wrong Password',
+            emailError: '',
+          });
+        }
+        if (error.code === 'auth/user-not-found') {
+          setError({
+            ...error,
+            emailError: 'Please check your email address and try again!',
+            passwordError: '',
+          });
+        }
+        if (error.code === 'auth/invalid-email') {
+          setError({
+            ...error,
+            emailError: 'That email address is invalid!',
+            passwordError: '',
+          });
+        }
+      });
   }
 
   return (
     <KeyboardAvoidingView style={styles.container}>
       <Image
-        source={require('../assets/images/loginController.png')}
+        source={require('../assets/images/login.png')}
         resizeMode="contain"
-        style={{height: 200, width: 200, alignSelf: 'center'}}
+        style={{height: 300, width: 300, alignSelf: 'center'}}
         // height="100"
         // width="100"
       />
@@ -46,15 +77,23 @@ export default function LoginScreen({navigation}: {navigation: any}) {
         style={styles.textInput}
         onChangeText={text => setLogin({...login, email: text})}
       />
+      {error.emailError !== '' && (
+        <Text style={styles.text}>{error.emailError}</Text>
+      )}
       <TextInput
         placeholder="Password"
         value={login.password}
         style={styles.textInput}
         onChangeText={text => setLogin({...login, password: text})}
       />
+      {error.passwordError !== '' && (
+        <Text style={styles.text}>{error.passwordError}</Text>
+      )}
+
       <Button
         icon="login"
         mode="outlined"
+        // disabled={login.email === '' || login.password === ''}
         style={styles.btn}
         onPress={loginWithCredentials}>
         Login
@@ -92,6 +131,12 @@ const styles = StyleSheet.create({
     shadowRadius: 10.32,
 
     elevation: 16,
+  },
+  text: {
+    color: Colors.secondary,
+    fontWeight: '500',
+    fontSize: 14,
+    marginHorizontal: 50,
   },
   btn: {
     alignSelf: 'center',

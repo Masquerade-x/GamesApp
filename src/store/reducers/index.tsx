@@ -8,7 +8,7 @@ import {
   POPULAR_MOVIES,
 } from '../actions/types';
 
-const initialState = {
+export const initialState = {
   gameData: [],
   popularMoviesData: [],
   favGames: [],
@@ -45,14 +45,10 @@ const rootReducer = (state = initialState, action: any) => {
       };
     }
     case PROFILE_PIC: {
-      return {
-        profilePic: action.payload,
-      };
+      return {...state, profilePic: action.payload};
     }
     case CREATE_ID: {
-      return {
-        id: action.payload,
-      };
+      return {...state, id: action.payload};
     }
     case RESET_APP: {
       return initialState;

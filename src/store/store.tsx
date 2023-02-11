@@ -18,6 +18,13 @@ export type AppDispatch = typeof store.dispatch;
 
 export const store = configureStore({
   reducer: persistedReducer,
+  preloadedState: {
+    gameData: [],
+    popularMoviesData: [],
+    favGames: [],
+    profilePic: {},
+    id: '',
+  },
 });
 
 export const persistor = persistStore(store);

@@ -126,8 +126,8 @@ export default function Settings() {
     <View style={styles.container}>
       <ImageBackground
         style={styles.imgBackground}
-        source={require('../assets/images/wrench.jpg')}
-        resizeMode="cover">
+        source={require('../assets/images/camera.png')}
+        resizeMode="contain">
         <View style={styles.blackScreen}>
           {response === null ? (
             <Image
@@ -186,7 +186,7 @@ export default function Settings() {
           </Dialog>
           {!visible && (
             <Button mode="text" onPress={showDialog}>
-              Logout
+              <Text style={{color: 'white'}}>Logout</Text>
             </Button>
           )}
         </View>
@@ -209,14 +209,14 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: 'rgba(0,0,0,0.7)',
+    backgroundColor: 'rgba(0,0,0,0.5)',
     alignItems: 'center',
   },
   img: {
     width: 200,
     height: 200,
     borderRadius: 100,
-    marginTop: 30,
+    marginTop: 10,
   },
   icons: {
     paddingHorizontal: 50,
